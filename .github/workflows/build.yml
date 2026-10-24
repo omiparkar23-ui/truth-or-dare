@@ -17,15 +17,12 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Configure Keystore and Signing
+      - name: Restore Keystore and Configure Signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
           mkdir -p android/app
-          if [ ! -f android/app/upload-keystore.jks ]; then
-            keytool -genkey -v -keystore android/app/upload-keystore.jks \
-              -alias upload -keyalg RSA -keysize 2048 -validity 10000 \
-              -storepass truthordare123 -keypass truthordare123 \
-              -dname "CN=TruthOrDare, OU=Dev, O=App, L=City, S=State, C=IN"
-          fi
+          echo "$KEYSTORE_BASE64" | base64 --decode > android/app/upload-keystore.jks
           cat <<EOF > android/key.properties
           storePassword=truthordare123
           keyPassword=truthordare123
