@@ -5,9 +5,8 @@ version: 1.0.0+1
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
-
+  
 dependencies:
-google_mobile_ads: ^5.1.0
   flutter:
     sdk: flutter
   google_mobile_ads: ^5.1.0
