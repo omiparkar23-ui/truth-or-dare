@@ -1,27 +1,31 @@
 name: Build Android AppBundle
+
 on:
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Java
+      - name: Setup Java JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Create Release Keystore & Configure Signing
+      - name: Configure Keystore and Signing
         run: |
-          keytool -genkey -v -keystore android/app/upload-keystore.jks \
-            -alias upload -keyalg RSA -keysize 2048 -validity 10000 \
-            -storepass truthordare123 -keypass truthordare123 \
-            -dname "CN=TruthOrDare, OU=Dev, O=App, L=City, S=State, C=IN"
-          
+          mkdir -p android/app
+          if [ ! -f android/app/upload-keystore.jks ]; then
+            keytool -genkey -v -keystore android/app/upload-keystore.jks \
+              -alias upload -keyalg RSA -keysize 2048 -validity 10000 \
+              -storepass truthordare123 -keypass truthordare123 \
+              -dname "CN=TruthOrDare, OU=Dev, O=App, L=City, S=State, C=IN"
+          fi
           cat <<EOF > android/key.properties
           storePassword=truthordare123
           keyPassword=truthordare123
@@ -35,11 +39,11 @@ jobs:
           flutter-version: '3.24.0'
           channel: 'stable'
 
-      - name: Get Dependencies
+      - name: Install Dependencies
         run: flutter pub get
 
       - name: Build Signed AAB
-        run: flutter build appbundle --release --no-tree-shake-icons
+        run: flutter build appbundle --release
 
       - name: Upload AAB Artifact
         uses: actions/upload-artifact@v4
