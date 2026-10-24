@@ -12,7 +12,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  AdService.instance.init(); // not awaited: don't block app start
+  //AdService.instance.init(); // not awaited: don't block app start
   runApp(const SpillOrDareApp());
 }
 
