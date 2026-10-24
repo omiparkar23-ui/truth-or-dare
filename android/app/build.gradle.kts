@@ -13,7 +13,7 @@ plugins {
 }
 
 android {
-    namespace = "com.tejas.truthordareultimate"
+    namespace = "com.tejas.truthordareultimatefun"
     compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
@@ -32,9 +32,9 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
-        targetSdk = flutter.targetSdkVersion
-        versionCode = 2
-        versionName = flutter.versionName
+        targetSdk = 36
+        versionCode = 3
+        versionName = "3.0.0"
     }
 
     signingConfigs {
