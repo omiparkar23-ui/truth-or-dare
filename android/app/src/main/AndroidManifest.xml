@@ -3,6 +3,9 @@
         android:label="Truth or Dare - Ultimate Fun"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
+        <meta-data
+    android:name="com.google.android.gms.ads.APPLICATION_ID"
+    android:value="ca-app-pub-5971667510366314~8420387740"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
